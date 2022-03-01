@@ -1,0 +1,587 @@
+{
+  "info": {
+    "_postman_id": "659e752e-8226-480c-9d3f-cbf7a41710e9",
+    "name": "Cymbio Fulfillments",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Fulfillments Copy",
+      "item": [
+        {
+          "name": "Get Orders To Fulfill",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{api-host}}/v3/suppliers/:SUPPLIER_ID/fulfillments?filter={ \"retailer_state\": \"ordered\", \"fulfillment_state\": \"new\" }",
+              "host": ["{{api-host}}"],
+              "path": ["v3", "suppliers", ":SUPPLIER_ID", "fulfillments"],
+              "query": [
+                {
+                  "key": "filter",
+                  "value": "{ \"retailer_state\": \"ordered\", \"fulfillment_state\": \"new\" }"
+                }
+              ],
+              "variable": [
+                {
+                  "key": "SUPPLIER_ID",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Fulfillment",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{api-host}}/v3/suppliers/:SUPPLIER_ID/fulfillments/:FULFILMENT_ID",
+              "host": ["{{api-host}}"],
+              "path": [
+                "v3",
+                "suppliers",
+                ":SUPPLIER_ID",
+                "fulfillments",
+                ":FULFILMENT_ID"
+              ],
+              "variable": [
+                {
+                  "key": "SUPPLIER_ID",
+                  "value": "1"
+                },
+                {
+                  "key": "FULFILMENT_ID",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Fulfillments To Cancel",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{api-host}}/v3/suppliers/:SUPPLIER_ID/fulfillments?filter={\"fulfillment_state\": \"cancelling\" }",
+              "host": ["{{api-host}}"],
+              "path": ["v3", "suppliers", ":SUPPLIER_ID", "fulfillments"],
+              "query": [
+                {
+                  "key": "filter",
+                  "value": "{\"fulfillment_state\": \"cancelling\" }"
+                }
+              ],
+              "variable": [
+                {
+                  "key": "SUPPLIER_ID",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Ship Multiple Fulfillment Lines",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"id\": 3832,\r\n    \"shipments\": [\r\n        {\r\n            \"trackingNumber\": \"1Z92483740968\",\r\n            \"items\": [\r\n                {\r\n                    \"sku\": \"842956154969\",\r\n                    \"quantity\": 1\r\n                }\r\n            ]\r\n        },\r\n        {\r\n            \"trackingNumber\": \"71232463567\",\r\n            \"items\": [\r\n                {\r\n                    \"sku\": \"842956137665\",\r\n                    \"quantity\": 1\r\n                }\r\n            ]\r\n        }\r\n    ]\r\n}"
+            },
+            "url": {
+              "raw": "{{api-host}}/v3/suppliers/:SUPPLIER_ID/fulfillments/shipments",
+              "host": ["{{api-host}}"],
+              "path": [
+                "v3",
+                "suppliers",
+                ":SUPPLIER_ID",
+                "fulfillments",
+                "shipments"
+              ],
+              "variable": [
+                {
+                  "key": "SUPPLIER_ID",
+                  "value": "88"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Reject Multiple Fulfillment Lines - Update",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "[\r\n    {\r\n        \"id\": 120,\r\n        \"rejectId\": \"A111B222\", // Unique per reject, ignored on duplicate\r\n        \"items\": [\r\n            {\r\n                \"sku\": \"100100\", // or upc or ean\r\n                \"quantity\": 1\r\n            }\r\n        ]\r\n    }\r\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{api-host}}/v3/suppliers/:SUPPLIER_ID/fulfillments/rejections",
+              "host": ["{{api-host}}"],
+              "path": [
+                "v3",
+                "suppliers",
+                ":SUPPLIER_ID",
+                "fulfillments",
+                "rejections"
+              ],
+              "variable": [
+                {
+                  "key": "SUPPLIER_ID",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Reject Multiple Fulfillment Lines - Snapshop",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "[\r\n    {\r\n        \"id\": 120,\r\n        \"items\": [\r\n            {\r\n                \"upc\": \"100100\", // or sku or ean\r\n                \"quantity\": 1\r\n            }\r\n        ]\r\n    },\r\n        {\r\n        \"id\": 120,\r\n        \"items\": [\r\n            {\r\n                \"upc\": \"200200\", // or sku or ean\r\n                \"quantity\": 1\r\n            }\r\n        ]\r\n    }\r\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{api-host}}/v3/suppliers/:SUPPLIER_ID/fulfillments/rejections",
+              "host": ["{{api-host}}"],
+              "path": [
+                "v3",
+                "suppliers",
+                ":SUPPLIER_ID",
+                "fulfillments",
+                "rejections"
+              ],
+              "variable": [
+                {
+                  "key": "SUPPLIER_ID",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Returns",
+          "request": {
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessToken",
+                  "value": "",
+                  "type": "string"
+                },
+                {
+                  "key": "tokenType",
+                  "type": "any"
+                },
+                {
+                  "key": "addTokenTo",
+                  "value": "header",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"reason\": \"Wrong Size\",\n    \"return_id\": \"A11B22\", // if passed, will treat is unique, without it, treated as new everytime\n    \"return_lines\": [\n        {\n            \"quantity\": 5,\n            \"sku\": \"AAA222\"\n        },\n        {\n            \"quantity\": 2,\n            \"sku\": \"BBB222\"\n        }\n    ]\n}"
+            },
+            "url": {
+              "raw": "{{api-host}}/v3/suppliers/:SUPPLIER_ID/fulfillments/:FULFILLMENT_ID/returns",
+              "host": ["{{api-host}}"],
+              "path": [
+                "v3",
+                "suppliers",
+                ":SUPPLIER_ID",
+                "fulfillments",
+                ":FULFILLMENT_ID",
+                "returns"
+              ],
+              "variable": [
+                {
+                  "key": "SUPPLIER_ID",
+                  "value": "1"
+                },
+                {
+                  "key": "FULFILLMENT_ID",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Accept a Fulfillment",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            },
+            "url": {
+              "raw": "{{api-host}}/v3/suppliers/:SUPPLIER_ID/fulfillments/:FULFILLMENT_ID/setStatus/accepted",
+              "host": ["{{api-host}}"],
+              "path": [
+                "v3",
+                "suppliers",
+                ":SUPPLIER_ID",
+                "fulfillments",
+                ":FULFILLMENT_ID",
+                "setStatus",
+                "accepted"
+              ],
+              "variable": [
+                {
+                  "key": "SUPPLIER_ID",
+                  "value": "78"
+                },
+                {
+                  "key": "FULFILLMENT_ID",
+                  "value": "929"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Ship a Fulfillment",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n\t\"data\": \"1Z3321233243242344\"\n}"
+            },
+            "url": {
+              "raw": "{{api-host}}/v3/suppliers/:SUPPLIER_ID/fulfillments/:FULFILLMENT_ID/setStatus/shipped",
+              "host": ["{{api-host}}"],
+              "path": [
+                "v3",
+                "suppliers",
+                ":SUPPLIER_ID",
+                "fulfillments",
+                ":FULFILLMENT_ID",
+                "setStatus",
+                "shipped"
+              ],
+              "variable": [
+                {
+                  "key": "SUPPLIER_ID",
+                  "value": "1"
+                },
+                {
+                  "key": "FULFILLMENT_ID",
+                  "value": "9"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Cant Cancel a Fulfillment",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            },
+            "url": {
+              "raw": "{{api-host}}/v3/suppliers/:SUPPLIER_ID/fulfillments/:FULFILLMENT_ID/setStatus/cancellation_not_allowed",
+              "host": ["{{api-host}}"],
+              "path": [
+                "v3",
+                "suppliers",
+                ":SUPPLIER_ID",
+                "fulfillments",
+                ":FULFILLMENT_ID",
+                "setStatus",
+                "cancellation_not_allowed"
+              ],
+              "variable": [
+                {
+                  "key": "SUPPLIER_ID",
+                  "value": "1"
+                },
+                {
+                  "key": "FULFILLMENT_ID",
+                  "value": "56"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Fulfillment Error No Stock",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            },
+            "url": {
+              "raw": "{{api-host}}/v3/suppliers/:SUPPLIER_ID/fulfillments/:FULFILLMENT_ID/setStatus/out_of_stock",
+              "host": ["{{api-host}}"],
+              "path": [
+                "v3",
+                "suppliers",
+                ":SUPPLIER_ID",
+                "fulfillments",
+                ":FULFILLMENT_ID",
+                "setStatus",
+                "out_of_stock"
+              ],
+              "variable": [
+                {
+                  "key": "SUPPLIER_ID",
+                  "value": "1"
+                },
+                {
+                  "key": "FULFILLMENT_ID",
+                  "value": "56"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Fulfillment Error Missing SKU",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            },
+            "url": {
+              "raw": "{{api-host}}/v3/suppliers/:SUPPLIER_ID/fulfillments/:FULFILLMENT_ID/setStatus/missing_sku",
+              "host": ["{{api-host}}"],
+              "path": [
+                "v3",
+                "suppliers",
+                ":SUPPLIER_ID",
+                "fulfillments",
+                ":FULFILLMENT_ID",
+                "setStatus",
+                "missing_sku"
+              ],
+              "variable": [
+                {
+                  "key": "SUPPLIER_ID",
+                  "value": "1"
+                },
+                {
+                  "key": "FULFILLMENT_ID",
+                  "value": "56"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Fulfillment Error Wrong Address",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            },
+            "url": {
+              "raw": "{{api-host}}/v3/suppliers/:SUPPLIER_ID/fulfillments/:FULFILLMENT_ID/setStatus/wrong_address",
+              "host": ["{{api-host}}"],
+              "path": [
+                "v3",
+                "suppliers",
+                ":SUPPLIER_ID",
+                "fulfillments",
+                ":FULFILLMENT_ID",
+                "setStatus",
+                "wrong_address"
+              ],
+              "variable": [
+                {
+                  "key": "SUPPLIER_ID",
+                  "value": "1"
+                },
+                {
+                  "key": "FULFILLMENT_ID",
+                  "value": "56"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Fulfillment with Invoice ID",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n\t\"invoice_id\": \"12345\"\n}"
+            },
+            "url": {
+              "raw": "{{api-host}}/v3/suppliers/:SUPPLIER_ID/fulfillments/:FULFILLMENT_ID",
+              "host": ["{{api-host}}"],
+              "path": [
+                "v3",
+                "suppliers",
+                ":SUPPLIER_ID",
+                "fulfillments",
+                ":FULFILLMENT_ID"
+              ],
+              "variable": [
+                {
+                  "key": "SUPPLIER_ID",
+                  "value": ""
+                },
+                {
+                  "key": "FULFILLMENT_ID",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
