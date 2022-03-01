@@ -1,7 +1,7 @@
 ## Welcome to the Cym.bio Postman collection
 
 <p align="center">
-<img src="https://github.com/Cymbio/master/assets/logo.jpeg"/>
+<img src="https://github.com/Cymbio/cymbio-postman-collections/blob/master/assets/logo.jpeg?raw=true"/>
 </p>
 This intention of this repository is to help you to integrate as a Supplier/Retailer to teh Cymbio integrations platform.
 
